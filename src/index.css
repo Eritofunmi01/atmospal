@@ -1,0 +1,172 @@
+@import "tailwindcss";
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap");
+
+/* ── Tailwind ─────────────────────────────────────────────── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables ────────────────────────────────────────── */
+:root {
+  /* Dark theme defaults */
+  --glass-bg:       rgba(255, 255, 255, 0.05);
+  --glass-border:   rgba(251, 191, 36, 0.15);   /* amber tint border */
+  --glass-shadow:   0 8px 32px rgba(0, 0, 0, 0.4);
+  --accent-glow:    rgba(245, 158, 11, 0.35);   /* amber glow */
+  --text-primary:   #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.55);
+}
+
+/* Light theme overrides */
+:root:not(.dark) {
+  --glass-bg:       rgba(255, 255, 255, 0.55);
+  --glass-border:   rgba(217, 119, 6, 0.25);
+  --glass-shadow:   0 8px 32px rgba(0, 0, 0, 0.08);
+  --accent-glow:    rgba(245, 158, 11, 0.25);
+  --text-primary:   #1e293b;
+  --text-secondary: rgba(30, 41, 59, 0.6);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "DM Sans", sans-serif;
+    background: #0f172a;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Light mode body bg */
+  html:not(.dark) body {
+    background: #f1f5f9;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(245, 158, 11, 0.3);
+    border-radius: 3px;
+  }
+}
+
+/* ── Component classes ────────────────────────────────────── */
+@layer components {
+
+  /* Glassmorphism card */
+  .glass {
+    background:              var(--glass-bg);
+    border:                  1px solid var(--glass-border);
+    box-shadow:              var(--glass-shadow);
+    backdrop-filter:         blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius:           20px;
+  }
+
+  /* Fade-up entrance */
+  .fade-in { animation: fadeUp 0.5s ease both; }
+
+  /* ── Weather gradient backgrounds (dark) ── */
+  .gradient-default      { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); }
+  .gradient-clear-day    { background: linear-gradient(135deg, #0f172a 0%, #1c1917 40%, #292524 100%); }
+  .gradient-clear-night  { background: linear-gradient(135deg, #0f172a 0%, #0c0a1e 50%, #1e1b4b 100%); }
+  .gradient-clouds       { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); }
+  .gradient-rain         { background: linear-gradient(135deg, #0f172a 0%, #0c1a2e 50%, #1e293b 100%); }
+  .gradient-drizzle      { background: linear-gradient(135deg, #0f172a 0%, #172033 100%); }
+  .gradient-thunderstorm { background: linear-gradient(135deg, #0f172a 0%, #1a1a2e 50%, #0f172a 100%); }
+  .gradient-snow         { background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%); }
+  .gradient-mist         { background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%); }
+
+  /* ── Light mode gradient overrides ── */
+  html:not(.dark) .gradient-default      { background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 50%, #e8edf4 100%); }
+  html:not(.dark) .gradient-clear-day    { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 40%, #fef9ee 100%); }
+  html:not(.dark) .gradient-clear-night  { background: linear-gradient(135deg, #ddd6fe 0%, #ede9fe 50%, #f5f3ff 100%); }
+  html:not(.dark) .gradient-clouds       { background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 50%, #cbd5e1 100%); }
+  html:not(.dark) .gradient-rain         { background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 50%, #e0f2fe 100%); }
+  html:not(.dark) .gradient-drizzle      { background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%); }
+  html:not(.dark) .gradient-thunderstorm { background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 50%, #f5f3ff 100%); }
+  html:not(.dark) .gradient-snow         { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%); }
+  html:not(.dark) .gradient-mist         { background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%); }
+
+  /* Animated blobs */
+  .bg-blob {
+    position:       fixed;
+    border-radius:  50%;
+    filter:         blur(90px);
+    opacity:        0.18;
+    pointer-events: none;
+    animation:      blobFloat 14s ease-in-out infinite alternate;
+  }
+
+  html:not(.dark) .bg-blob { opacity: 0.22; }
+
+  /* Unit toggle button */
+  .unit-toggle {
+    font-family:   "Syne", sans-serif;
+    font-size:     1.5rem;
+    font-weight:   700;
+    color:         #f59e0b;
+    margin-top:    12px;
+    padding:       6px 10px;
+    border-radius: 8px;
+    background:    rgba(245, 158, 11, 0.1);
+    border:        1px solid rgba(245, 158, 11, 0.3);
+    cursor:        pointer;
+    transition:    background 0.25s ease, transform 0.25s ease;
+  }
+  .unit-toggle:hover {
+    background: rgba(245, 158, 11, 0.22);
+    transform:  scale(1.05);
+  }
+
+  /* Spinner ring */
+  .spinner-ring { position: relative; width: 60px; height: 60px; }
+  .spinner-ring div {
+    position:      absolute;
+    inset:         0;
+    border:        3px solid transparent;
+    border-radius: 50%;
+    animation:     spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+  .spinner-ring div:nth-child(1) { border-top-color: #f59e0b; animation-delay: -0.45s; }
+  .spinner-ring div:nth-child(2) { border-top-color: #fbbf24; animation-delay: -0.3s;  }
+  .spinner-ring div:nth-child(3) { border-top-color: #d97706; animation-delay: -0.15s; }
+  .spinner-ring div:nth-child(4) { border-top-color: #f59e0b; }
+
+  /* Tiny spinner inside search button */
+  .btn-spinner {
+    width:            16px;
+    height:           16px;
+    border:           2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius:    50%;
+    animation:        spin 0.7s linear infinite;
+  }
+
+  /* Today forecast highlight */
+  .forecast-today {
+    border-color: #f59e0b !important;
+    box-shadow:   0 0 22px var(--accent-glow), var(--glass-shadow) !important;
+  }
+
+  /* Search bar focus glow */
+  .search-focus:focus-within {
+    border-color: #f59e0b;
+    box-shadow:   0 0 0 3px var(--accent-glow);
+  }
+}
+
+/* ── Keyframes ────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes blobFloat {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -40px) scale(1.08); }
+}
