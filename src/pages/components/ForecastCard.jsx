@@ -1,17 +1,15 @@
+// ============================================================
+// components/ForecastCard.jsx
+// ============================================================
 import { formatDay, formatDate } from "../../utils/helpers";
 
 export default function ForecastCard({ item, unit, isToday }) {
   const condition = item.weather[0];
-  const iconUrl   = `https://openweathermap.org/img/wn/${condition.icon}@2x.png`;
+  const iconUrl   = condition.iconUrl;
 
   return (
-    <div
-      className={`
-        glass flex flex-col items-center gap-1.5 py-5 px-2 text-center fade-in
-        hover:-translate-y-1 transition-transform duration-200 min-w-[100px]
-        ${isToday ? "forecast-today" : ""}
-      `}
-    >
+    <div className={`glass flex flex-col items-center gap-1.5 py-5 px-2 text-center fade-in hover:-translate-y-1 transition-transform duration-200 min-w-[100px] ${isToday ? "forecast-today" : ""}`}>
+
       <p className="font-display font-bold text-sm" style={{ color: "var(--text-primary)" }}>
         {isToday ? "Today" : formatDay(item.dt)}
       </p>

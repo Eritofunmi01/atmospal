@@ -8,7 +8,7 @@ export default function CurrentWeather({ data, unit, onToggleUnit }) {
 
   const { name, sys, main, weather, wind, visibility, clouds } = data;
   const condition  = weather[0];
-  const iconUrl    = `https://openweathermap.org/img/wn/${condition.icon}@2x.png`;
+  const iconUrl    = condition.iconUrl;
   const unitSymbol = unit === "C" ? "°C" : "°F";
 
   const temp      = Math.round(main.temp);
@@ -24,7 +24,6 @@ export default function CurrentWeather({ data, unit, onToggleUnit }) {
       {/* City + date */}
       <div className="flex items-start justify-between flex-wrap gap-2 mb-7">
         <div className="flex items-center gap-2">
-          {/* Amber pin icon */}
           <svg className="shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
           </svg>
@@ -41,21 +40,13 @@ export default function CurrentWeather({ data, unit, onToggleUnit }) {
 
       {/* Temp + icon */}
       <div className="flex items-center justify-between flex-wrap gap-6 mb-8">
-
-        {/* Giant temperature */}
         <div className="flex items-start leading-none">
           <span
             className="font-display font-extrabold"
-            style={{
-              fontSize: "clamp(5rem, 14vw, 8rem)",
-              letterSpacing: "-4px",
-              color: "var(--text-primary)",
-            }}
+            style={{ fontSize: "clamp(5rem, 14vw, 8rem)", letterSpacing: "-4px", color: "var(--text-primary)" }}
           >
             {temp}
           </span>
-
-          {/* Unit toggle — amber */}
           <button
             onClick={onToggleUnit}
             className="unit-toggle"
@@ -66,7 +57,6 @@ export default function CurrentWeather({ data, unit, onToggleUnit }) {
           </button>
         </div>
 
-        {/* Icon + description */}
         <div className="flex flex-col items-center gap-1">
           <img
             src={iconUrl}
@@ -99,19 +89,10 @@ export default function CurrentWeather({ data, unit, onToggleUnit }) {
 
 function StatCard({ icon, label, value }) {
   return (
-    <div
-      className="flex flex-col items-center gap-1.5 py-4 px-2 rounded-xl text-center
-        border border-amber-500/10 bg-amber-500/5
-        hover:bg-amber-500/10 hover:border-amber-500/25
-        transition-colors duration-200"
-    >
+    <div className="flex flex-col items-center gap-1.5 py-4 px-2 rounded-xl text-center border border-amber-500/10 bg-amber-500/5 hover:bg-amber-500/10 hover:border-amber-500/25 transition-colors duration-200">
       <span className="text-2xl">{icon}</span>
-      <span className="text-[0.65rem] uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>
-        {label}
-      </span>
-      <span className="font-display font-semibold text-sm" style={{ color: "var(--text-primary)" }}>
-        {value}
-      </span>
+      <span className="text-[0.65rem] uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>{label}</span>
+      <span className="font-display font-semibold text-sm" style={{ color: "var(--text-primary)" }}>{value}</span>
     </div>
   );
 }
