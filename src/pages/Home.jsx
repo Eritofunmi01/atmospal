@@ -277,12 +277,12 @@ export default function Home() {
         <footer className="mt-10 text-center text-xs" style={{ color: "var(--text-secondary)" }}>
           Powered by{" "}
           <a
-            href="https://openweathermap.org"
+            href="https://www.weatherapi.com/"
             target="_blank"
             rel="noreferrer"
             className="text-amber-500 hover:underline"
           >
-            OpenWeatherMap
+            WeatherApi
           </a>{" "}
           · AtomsPal © {new Date().getFullYear()}
         </footer>
