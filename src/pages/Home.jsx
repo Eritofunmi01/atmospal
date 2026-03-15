@@ -257,16 +257,18 @@ export default function Home() {
                     5-Day Forecast
                   </h3>
 
-                  <div className="grid grid-cols-5 gap-3 overflow-x-auto pb-2">
-                    {forecastDays.map((day, i) => (
-                      <ForecastCard
-                        key={day.dt}
-                        item={day}
-                        unit={unit}
-                        isToday={i === 0}
-                      />
-                    ))}
-                  </div>
+
+<div className="flex gap-3 overflow-x-auto pb-3 md:grid md:grid-cols-5 md:overflow-x-visible
+  scrollbar-thin scroll-smooth snap-x snap-mandatory">
+  {forecastDays.map((day, i) => (
+    <ForecastCard
+      key={day.dt}
+      item={day}
+      unit={unit}
+      isToday={i === 0}
+    />
+  ))}
+</div>
                 </section>
               )}
             </>
